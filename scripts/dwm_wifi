@@ -1,0 +1,8 @@
+#!/bin/zsh 
+connected=$(iwgetid | awk -F'["]' '{print $2}')
+if [ "$connected" = "" ]; then
+	echo " Disconnected"
+else
+	strength=$(awk '/^\s*w/ { print int($3 * 100 / 70) "%" }' /proc/net/wireless)
+	echo "  $connected  $strength"
+fi

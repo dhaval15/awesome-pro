@@ -1,0 +1,2 @@
+#!/bin/zsh 
+xbacklight -inc 10

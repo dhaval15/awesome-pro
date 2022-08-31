@@ -1,0 +1,8 @@
+#!/bin/zsh 
+volume=$(pamixer --get-volume)
+mute=$(pamixer --get-mute)
+icon=""
+if [ "$mute" = "true" ]; then
+	icon=""
+fi
+echo "$icon  $volume"
