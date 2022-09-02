@@ -13,7 +13,7 @@ local function factory(args)
     local cmd      = args.command
 		local bg       = args.bg or "#000000"
 		local fg       = args.fg or "#FFFFFF"
-		local margins  = args.margins or 2
+		local margins  = args.margins or 0
 		local padding  = args.padding or 8
 		local prev_value = nil
 		local font     = "Icons 10"
