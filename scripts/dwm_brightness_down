@@ -1,2 +1,2 @@
-#!/bin/zsh 
-xbacklight -dec 10
+#!/bin/zsh
+light -U 10

@@ -104,11 +104,11 @@ theme.volume = modular.widget({
 
 theme.volume.widget:buttons(awful.util.table.join(
                                awful.button({}, 4, function ()
-                                     awful.util.spawn("dwm_volume_down")
+                                     awful.util.spawn(theme.scripts_dir .. "dwm_volume_down")
                                      theme.volume.update()
                                end),
                                awful.button({}, 5, function ()
-                                     awful.util.spawn("dwm_volume_up")
+                                     awful.util.spawn(theme.scripts_dir .. "dwm_volume_up")
                                      theme.volume.update()
                                end)
 ))
@@ -121,11 +121,11 @@ theme.brightness = modular.widget({
 })
 theme.brightness.widget:buttons(awful.util.table.join(
                                awful.button({}, 4, function ()
-                                     awful.util.spawn("dwm_brightness_down")
+                                     awful.util.spawn(theme.scripts_dir .. "dwm_brightness_down")
                                      theme.brightness.update()
                                end),
                                awful.button({}, 5, function ()
-                                     awful.util.spawn("dwm_brightness_up")
+                                     awful.util.spawn(theme.scripts_dir .. "dwm_brightness_up")
                                      theme.brightness.update()
                                end)
 ))
@@ -139,7 +139,7 @@ theme.wifi = modular.widget({
 
 
 -- Separators
-local spr     = wibox.widget.textbox(' ')
+local spr     = wibox.widget.textbox('')
 
 function theme.at_screen_connect(s)
 
