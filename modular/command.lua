@@ -29,7 +29,7 @@ local function factory(args)
 					right   = padding,
 					widget  = wibox.container.margin()
 				},
-				bg     = bg .. "AA",
+				bg     = bg .. "CC",
 				fg     = fg,
 				widget = wibox.container.background()
 			},

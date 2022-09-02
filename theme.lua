@@ -1,10 +1,3 @@
---[[
-
-     Powerarrow Dark Awesome WM theme
-     github.com/lcpz
-
---]]
-
 local gears = require("gears")
 local modular  = require("modular")
 local awful = require("awful")
@@ -71,6 +64,11 @@ theme.menu_width                                = dpi(140)
 theme.tasklist_plain_task_name                  = true
 theme.tasklist_disable_icon                     = true
 theme.useless_gap                               = dpi(3)
+
+theme.taglist_bg_focus                          = palette.yellow
+theme.taglist_bg_occupied                       = palette.yellow .. "55"
+theme.taglist_shape                             = gears.shape.circle
+theme.taglist_spacing                           = dpi(4)
 
 
 local keyboardlayout = awful.widget.keyboardlayout:new()
@@ -159,74 +157,10 @@ function theme.at_screen_connect(s)
     s.mypromptbox = awful.widget.prompt()
 
     -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, awful.util.taglist_buttons)
-
-		s.mytaglist = awful.widget.taglist {
-    		screen  = s,
-    		filter  = awful.widget.taglist.filter.all,
-    		style   = {
-        		shape = gears.shape.circle
-    		},
-    		layout   = {
-        		spacing = -30,
-        		--[[ spacing_widget = {
-            		color  = '#dddddd',
-            		shape  = gears.shape.powerline,
-            		widget = wibox.widget.separator,
-        		}, ]]
-        		layout  = wibox.layout.fixed.horizontal
-    		},
-    		widget_template = {
-            {
-                {
-                    {
-                        {
-                            {
-                                id     = 'index_role',
-                                widget = wibox.widget.textbox,
-                            },
-                            margins = 0,
-                            widget  = wibox.container.margin,
-                        },
-                        bg     = palette.yellow,
-                        shape  = gears.shape.square,
-                        widget = wibox.container.background,
-                    },
-                    {
-                        {
-                            id     = 'icon_role',
-                            widget = wibox.widget.imagebox,
-                        },
-                        margins = 2,
-                        widget  = wibox.container.margin,
-                    },
-                    layout = wibox.layout.fixed.horizontal,
-                },
-                left  = 18,
-                right = 18,
-                widget = wibox.container.margin
-            },
-            id     = 'background_role',
-            widget = wibox.container.background,
-            -- Add support for hover colors and an index label
-            create_callback = function(self, c3, index, objects) --luacheck: no unused args
-                self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
-                self:connect_signal('mouse::enter', function()
-                    if self.bg ~= palette.yellow then
-                        self.backup     = self.bg
-                        self.has_backup = true
-                    end
-                    self.bg = palette.yellow
-                end)
-                self:connect_signal('mouse::leave', function()
-                    if self.has_backup then self.bg = self.backup end
-                end)
-            end,
-            update_callback = function(self, c3, index, objects) --luacheck: no unused args
-                self:get_children_by_id('index_role')[1].markup = '<b> '..index..' </b>'
-            end,
-    		},
-    		buttons = awful.util.taglist_buttons
+    s.mytaglist = awful.widget.taglist {
+			screen       	= s,
+			filter 				= awful.widget.taglist.filter.all,
+			buttons				= awful.util.taglist_buttons
 		}
 
     -- Create the wibox
@@ -249,6 +183,7 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
+            spr,
             s.mytaglist,
             s.mypromptbox,
             spr,
