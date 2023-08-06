@@ -189,9 +189,8 @@ function theme.at_screen_connect(s)
             layout = wibox.layout.fixed.horizontal,
             theme.volume,
             theme.brightness,
-						theme.memory,
-						theme.battery,
-						theme.wifi,
+	    theme.memory,
+	    theme.wifi,
             theme.time,
         },
     }
