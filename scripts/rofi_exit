@@ -1,0 +1,11 @@
+#!/bin/sh
+ANS=$(printf "Lock\nHibernate\nLogout\nReboot\nShutdown" | \
+                rofi -dmenu -i -p '' -width 20 \
+                -hide-scrollbar -eh 1 -line-padding 4 -padding 50 -lines 4 -theme "exit")
+            case "$ANS" in
+                *Lock) dm-tool lock;;
+		*Hibernate) systemctl hibernate;;
+		*Logout) pkill dwm; pkill awesome; pkill focuswm; pkill leftwm; pkill feather_wm;openbox --exit;;
+                *Reboot) systemctl reboot ;;
+                *Shutdown) systemctl poweroff ;;
+            esac

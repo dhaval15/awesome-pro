@@ -1,4 +1,3 @@
-#!/bin/zsh 
 volume=$(pamixer --get-volume)
 mute=$(pamixer --get-mute)
 icon=""

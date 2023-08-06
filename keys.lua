@@ -1,14 +1,18 @@
 local awful         = require("awful")
+local beautiful     = require("beautiful")
 local mytable       = awful.util.table or gears.table
 local hotkeys_popup = require("awful.hotkeys_popup")
                       require("awful.hotkeys_popup.keys")
 
 local modkey       = "Mod4"
 local altkey       = "Mod1"
-local terminal     = "kitty_launch"
 local terminal_alt = "kitty"
 local editor       = os.getenv("EDITOR") or "nvim"
 local browser      = "chromium"
+local scripts_dir  = os.getenv("HOME") .. "/.config/awesome/scripts/"
+local terminal     = scripts_dir .. "kitty_launch"
+local emacs        = scripts_dir .. "dmenu_emacs"
+local rofi_exit    = scripts_dir .. "rofi_exit"
 
 -- Taglist Buttons
 awful.util.taglist_buttons = mytable.join(
@@ -60,27 +64,35 @@ globalkeys = mytable.join(
 		-- Hotkeys
     awful.key({ modkey }, "p", function() os.execute("screenshotd") end,
               {description = "take a screenshot", group = "hotkeys"}),
-    awful.key({ modkey,           }, "Escape", function() awful.spawn("rofi_exit") end,
+    awful.key({ modkey,           }, "Escape", function() awful.spawn(rofi_exit) end,
               {description = "exit menu", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessUp", function () os.execute("dwm_brighness_up") end,
-              {description = "+10%", group = "hotkeys"}),
-    awful.key({ }, "XF86MonBrightnessDown", function () os.execute("dwm_brightness_down") end,
-              {description = "-10%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessUp", 
+				function () 
+					awful.spawn(scripts_dir .. "dwm_brighness_up") 
+          beautiful.brightness.update()
+				end,
+        {description = "+10%", group = "hotkeys"}),
+    awful.key({ }, "XF86MonBrightnessDown", 
+				function () 
+					awful.spawn(scripts_dir .. "dwm_brightness_down") 
+          beautiful.brightness.update()
+				end,
+        {description = "-10%", group = "hotkeys"}),
     awful.key({ }, "XF86AudioRaiseVolume",
         function ()
-            os.execute("dwm_volume_up")
+            awful.spawn(scripts_dir .. "dwm_volume_up")
             beautiful.volume.update()
         end,
         {description = "volume up", group = "hotkeys"}),
     awful.key({ }, "XF86AudioLowerVolume",
         function ()
-            os.execute("dwm_volume_down")
+            awful.spawn(scripts_dir .. "dwm_volume_down")
             beautiful.volume.update()
         end,
         {description = "volume down", group = "hotkeys"}),
     awful.key({ }, "XF86AudioMute",
         function ()
-            os.execute("dwm_volume_toggle")
+            awful.spawn(scripts_dir .. "dwm_volume_toggle")
             beautiful.volume.update()
         end,
         {description = "toggle mute", group = "hotkeys"}),
@@ -94,13 +106,13 @@ globalkeys = mytable.join(
               {description = "open a terminal", group = "launcher"}),
     awful.key({ modkey }, "b", function () awful.spawn(browser) end,
               {description = "run browser", group = "launcher"}),
-    awful.key({ modkey,           }, ";", function () awful.spawn("dmenu_emacs") end,
+    awful.key({ modkey,           }, ";", function () awful.spawn(emacs) end,
               {description = "emacs menu", group = "launcher"}),
 
 		-- Tags
-    awful.key({ modkey,           }, "Left",   awful.tag.viewprev,
+    awful.key({ modkey,           }, "j",   awful.tag.viewprev,
               {description = "view previous", group = "tag"}),
-    awful.key({ modkey,           }, "Right",  awful.tag.viewnext,
+    awful.key({ modkey,           }, "k",  awful.tag.viewnext,
               {description = "view next", group = "tag"}),
     --[[ awful.key({ modkey,           }, "Escape", awful.tag.history.restore,
               {description = "go back", group = "tag"}), ]]
@@ -112,13 +124,13 @@ globalkeys = mytable.join(
 
     -- Client Management
 
-    awful.key({ modkey,           }, "j",
+    awful.key({ modkey, "Control"           }, "j",
         function ()
             awful.client.focus.byidx( 1)
         end,
         {description = "focus next by index", group = "client"}
     ),
-    awful.key({modkey,           }, "k",
+    awful.key({modkey,  "Control"           }, "k",
         function ()
             awful.client.focus.byidx(-1)
         end,
@@ -139,10 +151,10 @@ globalkeys = mytable.join(
 
     -- Screen Management
 		
-    awful.key({ modkey, "Control" }, "j", function () awful.screen.focus_relative( 1) end,
+    awful.key({ modkey }, "Left", function () awful.screen.focus_relative( 1) end,
               {description = "focus the next screen", group = "screen"}),
-    awful.key({ modkey, "Control" }, "k", function () awful.screen.focus_relative(-1) end,
-              {description = "focus the previous screen", group = "screen"}),
+    awful.key({ modkey }, "Right", function () awful.screen.focus_relative( 1) end,
+              {description = "focus the next screen", group = "screen"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description = "jump to urgent client", group = "client"})
 
@@ -157,7 +169,7 @@ clientkeys = mytable.join(
         {description = "toggle fullscreen", group = "client"}),
     awful.key({ modkey, "Shift"   }, "q",      function (c) c:kill()                         end,
               {description = "close", group = "client"}),
-    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
+    awful.key({ modkey            }, "d",  awful.client.floating.toggle                     ,
               {description = "toggle floating", group = "client"}),
     awful.key({ modkey, "Control" }, "Return", function (c) c:swap(awful.client.getmaster()) end,
               {description = "move to master", group = "client"}),

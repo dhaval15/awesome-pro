@@ -77,6 +77,7 @@ local keyboardlayout = awful.widget.keyboardlayout:new()
 theme.time = modular.widget({
 		bg = palette.blue,
 		fg = palette.bg0,
+		right = true,
 	  command = theme.scripts_dir .. "dwm_time",
 })
 
@@ -100,6 +101,7 @@ theme.volume = modular.widget({
 	  command = theme.scripts_dir .. "dwm_volume",
 		bg = palette.red,
 		fg = palette.bg0,
+		left = true,
 })
 
 theme.volume.widget:buttons(awful.util.table.join(
@@ -136,10 +138,6 @@ theme.wifi = modular.widget({
 		fg = palette.bg0,
 	  command = theme.scripts_dir .. "dwm_wifi",
 })
-
-
--- Separators
-local spr     = wibox.widget.textbox('')
 
 function theme.at_screen_connect(s)
 
@@ -183,24 +181,17 @@ function theme.at_screen_connect(s)
         layout = wibox.layout.align.horizontal,
         { -- Left widgets
             layout = wibox.layout.fixed.horizontal,
-            spr,
             s.mytaglist,
             s.mypromptbox,
-            spr,
         },
         nil, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             theme.volume,
-						spr,
             theme.brightness,
-						spr,
 						theme.memory,
-						spr,
 						theme.battery,
-						spr,
 						theme.wifi,
-						spr,
             theme.time,
         },
     }

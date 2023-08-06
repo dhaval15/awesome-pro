@@ -1,3 +1,2 @@
-#!/bin/zsh 
 pamixer -i 4
 pkill -RTMIN+6 dwmblocks

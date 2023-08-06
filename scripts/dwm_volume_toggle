@@ -1,4 +1,3 @@
-#!/bin/zsh 
 mute=$(pamixer --get-mute)
 if [ "$mute" = "true" ]; then
 	pamixer -u

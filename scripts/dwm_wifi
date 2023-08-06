@@ -1,4 +1,3 @@
-#!/bin/zsh 
 connected=$(iwgetid | awk -F'["]' '{print $2}')
 if [ "$connected" = "" ]; then
 	echo " Disconnected"

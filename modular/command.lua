@@ -1,6 +1,7 @@
 local helpers = require("modular.helpers")
 local shell   = require("awful.util").shell
 local wibox   = require("wibox")
+local gears   = require("gears")
 
 -- COMMAND widget
 
@@ -17,8 +18,14 @@ local function factory(args)
 		local padding  = args.padding or 8
 		local prev_value = nil
 		local font     = "Icons 10"
+		local lp       = args.left or false
+		local rp       = args.right or false
     local settings = function(value) 
 			command.widget:set_markup(string.format("<span font='%s'>%s</span>", font, value))
+		end
+
+		local peel = function(cr, width, height)
+		  gears.shape.partially_rounded_rect(cr, width, height, lp, rp, rp, lp, 30)
 		end
 
     local container = {
@@ -31,6 +38,7 @@ local function factory(args)
 				},
 				bg     = bg .. "CC",
 				fg     = fg,
+				shape  = peel,
 				widget = wibox.container.background()
 			},
 			margins = margins,

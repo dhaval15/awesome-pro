@@ -8,3 +8,4 @@ run() {
 
 run nitrogen --restore
 run speed_keys
+run syncthing --no-browser

@@ -1,4 +1,3 @@
-#!/bin/sh 
 battery="/sys/class/power_supply/BAT0/"
 capacity=$(cat "$battery"/capacity)
 bstatus=$(cat "$battery"/status)
